@@ -14,18 +14,18 @@ use Illuminate\Support\Facades\Route;
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
+// Categories (public)
+Route::get('/categories', [CategoryController::class, 'index']);
+Route::get('/categories/{category}', [CategoryController::class, 'show']);
+
+// Books (public)
+Route::get('/books', [BookController::class, 'index']);
+Route::get('/categories/{category}/books', [BookController::class, 'byCategory']);
+Route::get('/categories/{category}/books/{book}', [BookController::class, 'show']);
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'me']);
-
-    // Categories (public)
-    Route::get('/categories', [CategoryController::class, 'index']);
-    Route::get('/categories/{category}', [CategoryController::class, 'show']);
-
-    // Books (public)
-    Route::get('/books', [BookController::class, 'index']);
-    Route::get('/categories/{category}/books', [BookController::class, 'byCategory']);
-    Route::get('/categories/{category}/books/{book}', [BookController::class, 'show']);
 
     // Admin only
     Route::middleware('admin')->group(function () {
